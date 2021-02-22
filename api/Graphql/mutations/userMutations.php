@@ -6,7 +6,7 @@ use App\Modelos\Usuario;
 
 $userMutations = [
     'insertarUsuario' => [
-        'type' => $userType,
+        'type' => $userTypeInsertResult,
         'args' => [
             'usuario' => Type::nonNull(Type::string()),
             'contrasenia' => Type::nonNull(Type::string()),

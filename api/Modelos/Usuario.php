@@ -43,25 +43,29 @@ class Usuario {
 
         $consulta = "INSERT INTO `usuarios` VALUES (null, ?, ?, ?)";
 
-        $con  = Conexion::conectarMysql();
-
-        $stmt = $con->prepare($consulta);
+        $stmt = Conexion::conectarMysql()->prepare($consulta);
 
         $stmt->bindValue(1, $datos['usuario'], PDO::PARAM_STR);
         $stmt->bindValue(2, $datos['contrasenia'], PDO::PARAM_STR);
         $stmt->bindValue(3, $datos['nombre'], PDO::PARAM_STR);
 
-        $stmt->execute();
+        $correcto = $stmt->execute();
 
-        $datos['id'] = $con->lastInsertId();
+        if($correcto) {
 
-        return $datos;//$datos tiene la siguiente estructura: $datos["usuario"]
-                      //                                      $datos["contrasenia"]
-                      //                                      $datos["nombre"]
-                      // y se adiciona el campo id que el ultimo id que se inserto
-                      // quedando de la siguiente manera      $datos["id"] más los anteriores,
-                      // los cuales vienen desde la variable $args y pasan a la variable $datos como parametros desde la Mutation
+            $respuesta['status'] = true;
+            $respuesta['message'] = 'El usuaurio ' .$datos['usuario'] . ' fue creado correctamente!';
+            $respuesta['user'] = $datos;
 
+        }else{
+
+            $respuesta['status'] = false;
+            $respuesta['message'] = 'Error al crear el usuario ' .$datos['usuario'];
+            $respuesta['user'] = null;
+
+        }
+
+        return $respuesta;
           
     }
 

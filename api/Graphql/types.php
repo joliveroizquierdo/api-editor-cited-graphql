@@ -14,3 +14,13 @@ $userType = new ObjectType([
         'nombre' => Type::string()       
     ]
 ]);
+
+$userTypeInsertResult = new ObjectType([
+    'name' => 'UsuarioInsertadoRespuesta',
+    'description' => 'Este es el tipo de dato UsuarioInsertadoRespuesta, se envia como respuesta al crear un usuario',
+    'fields' => [
+        'status' => Type::boolean(),
+        'message' => Type::string(),
+        'user' => $userType    
+    ]
+]);
