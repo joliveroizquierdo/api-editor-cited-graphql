@@ -27,6 +27,15 @@ $userMutations = [
         'resolve' => function($root, $args) {
                         return Usuario::actualizarUsuario($args);
                      }
+    ],
+    'eliminarUsuario' => [
+        'type' => $userTypeResponse,
+        'args' => [
+            'id' => Type::nonNull(Type::int())
+        ],
+        'resolve' => function($root, $args) {
+                        return Usuario::eliminarUsuario($args);
+                     }
     ]
 
 ];

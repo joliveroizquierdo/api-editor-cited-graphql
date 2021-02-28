@@ -105,5 +105,33 @@ class Usuario {
           
     }
 
+    public static function eliminarUsuario($datos) {
+
+        $consulta = "DELETE FROM `usuarios` WHERE `id` = ?";
+
+        $stmt = Conexion::conectarMysql()->prepare($consulta);
+
+        $stmt->bindValue(1, $datos['id'], PDO::PARAM_INT);
+
+        $correcto = $stmt->execute();//si le paso un id que ya existe manda el mensaje de exito, mejroar la validación y asegurarme de que se elimino
+
+        if($correcto) {
+
+            $respuesta['status'] = true;
+            $respuesta['message'] = 'El usuario con el id ' .$datos['id'] . ' fue eliminado correctamente!';
+            $respuesta['user'] = $datos;
+
+        }else{
+
+            $respuesta['status'] = false;
+            $respuesta['message'] = 'Error al eliminar el usuario con ' .$datos['id'];
+            $respuesta['user'] = null;
+
+        }
+
+        return $respuesta;
+
+          
+    }
 
 }
