@@ -54,13 +54,49 @@ class Usuario {
         if($correcto) {
 
             $respuesta['status'] = true;
-            $respuesta['message'] = 'El usuaurio ' .$datos['usuario'] . ' fue creado correctamente!';
+            $respuesta['message'] = 'El usuaurio ' .$datos['usuario'] . ' creado correctamente!';
             $respuesta['user'] = $datos;
 
         }else{
 
             $respuesta['status'] = false;
             $respuesta['message'] = 'Error al crear el usuario ' .$datos['usuario'];
+            $respuesta['user'] = null;
+
+        }
+
+        return $respuesta;
+          
+    }
+
+    public static function actualizarUsuario($datos) {
+
+
+        $consulta = "UPDATE `usuarios` 
+                        SET `usuario` = ?,
+                            `contrasenia` = ?,
+                            `nombre` = ?
+                      WHERE `id` = ?";
+
+        $stmt = Conexion::conectarMysql()->prepare($consulta);
+
+        $stmt->bindValue(1, $datos['usuario'], PDO::PARAM_STR);
+        $stmt->bindValue(2, $datos['contrasenia'], PDO::PARAM_STR);
+        $stmt->bindValue(3, $datos['nombre'], PDO::PARAM_STR);
+        $stmt->bindValue(4, $datos['id'], PDO::PARAM_INT);
+
+        $correcto = $stmt->execute();
+
+        if($correcto) {
+
+            $respuesta['status'] = true;
+            $respuesta['message'] = 'El usuario ' .$datos['usuario'] . ' actualizado correctamente!';
+            $respuesta['user'] = $datos;
+
+        }else{
+
+            $respuesta['status'] = false;
+            $respuesta['message'] = 'Error al actualizar los datos del usuario ' .$datos['usuario'];
             $respuesta['user'] = null;
 
         }
