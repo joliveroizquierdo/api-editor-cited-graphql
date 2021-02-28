@@ -13,10 +13,10 @@ class Conexion {
       try{
 
         $motor		  = 'mysql';
-        $servidor 	= 'localhost';
-        $bd		    	= 'contenido_cited';
-        $user   		= 'root';
-        $password	  = '0101';
+        $servidor 	= getenv('DB_HOST');
+        $bd		    	= getenv('DB_NAME');
+        $user   		= getenv('DB_USER');
+        $password	  = getenv('DB_PASS');
 
         $dbh = new PDO(
           $motor . ':host=' . $servidor . ';dbname=' . $bd, $user, $password,
