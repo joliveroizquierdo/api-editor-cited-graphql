@@ -22,7 +22,9 @@ try {
     $rawInput = file_get_contents('php://input');
     $input = json_decode($rawInput, true);
     $query = $input['query'];
-    $result = GraphQL::executeQuery($schema, $query);
+    $variableValues = isset($input['variables']) ? $input['variables'] : null;
+
+    $result = GraphQL::executeQuery($schema, $query, null, null, $variableValues);
 
     $output = $result->toArray();
     

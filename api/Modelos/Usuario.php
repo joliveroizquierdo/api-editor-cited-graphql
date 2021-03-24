@@ -54,7 +54,7 @@ class Usuario {
         if($correcto) {
 
             $respuesta['status'] = true;
-            $respuesta['message'] = 'El usuaurio ' .$datos['usuario'] . ' creado correctamente!';
+            $respuesta['message'] = 'El usuario ' .$datos['usuario'] . ' creado correctamente!';
             $respuesta['user'] = $datos;
 
         }else{
